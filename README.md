@@ -117,6 +117,10 @@ Once the qBittorrent instance is running, you need to configure it to run the sc
 
 The script will make a PATCH request to the service with the torrent hash, triggering the tracker addition process.
 
+Here is the screenshot of the qBittorrent settings:
+
+![image](https://s2.loli.net/2024/11/23/nPR6yiUXoJ8QCLb.png)
+
 ### For non Docker users
 
 You can run `poetry run package` to build a standalone executable.
