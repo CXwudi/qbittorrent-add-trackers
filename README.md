@@ -101,9 +101,9 @@ trackers:
     - "udp://tracker.example.com:6969/announce"
 ```
 
-The app will read both `config.yaml` and [`config.base.yaml`](config.base.yaml) from the current working directory.
+The app will read the included [`config.base.yaml`](config.base.yaml) from the current working directory first, and then override it with your provided `config.yaml` file in the same directory.
 
-All configuration options can be overridden via environment variables, with a prefix of `APP__`.
+Optionally, you can override the configuration via environment variables, with a prefix of `APP__`.
 For example, to override the `qbittorrent.host` and `qbittorrent.port` of the qBittorrent instance, you can set `APP__QBITTORRENT__HOST` and `APP__QBITTORRENT__PORT` respectively.
 
 ### Configuring qBittorrent
