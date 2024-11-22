@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Poetry
+.poetry/
+
+# Docker
+.dockerignore
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Config files (you might want to keep these in version control, adjust as needed)
+# config.yaml
+
+# Build artifacts
+*.pyc
+*.pyo
+*.pyd
+
+# PyInstaller
+*.spec
+
+# Temporary files
+*.tmp
+
+# qbittorrent
+.devcontainer/data/
+.devcontainer/downloads/

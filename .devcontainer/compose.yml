@@ -1,0 +1,47 @@
+services:
+
+  devcontainer:
+    image: qbittorrent-add-trackers-devcontainer:devcontainer
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: devcontainer
+    environment:
+      - APP__QBITTORRENT__URL=http://qbittorrent:${QBITTORRENT_WEBUI_PORT}
+      - APP__QBITTORRENT__PASSWORD=123456
+      - APP__FLASK__PORT=${APP__FLASK__PORT:-8080}
+    volumes:
+      - ../:/workspace/qbittorrent-add-trackers
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  qbittorrent:
+    # please set user/pass to admin/123456
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - WEBUI_PORT=${QBITTORRENT_WEBUI_PORT}
+      - TORRENTING_PORT=${QBITTORRENT_TORRENTING_PORT}
+      - APP_PORT=${APP__FLASK__PORT:-8080}
+    volumes:
+      - ./data:/config
+      - ./downloads:/downloads
+      - ./run_on_add.sh:/run_on_add.sh
+    ports:
+      - ${QBITTORRENT_WEBUI_PORT}:${QBITTORRENT_WEBUI_PORT}
+      - ${QBITTORRENT_TORRENTING_PORT}:${QBITTORRENT_TORRENTING_PORT}/tcp
+      - ${QBITTORRENT_TORRENTING_PORT}:${QBITTORRENT_TORRENTING_PORT}/udp
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    profiles:
+      - redis
+    ports:
+      - 6379:6379
+    command: /bin/sh -c "redis-server --requirepass ${REDIS_HOST_PASSWORD}"
+    restart: unless-stopped
+

@@ -1,0 +1,22 @@
+qbittorrent:
+  url:
+  username: admin
+  password:
+
+trackers:
+  list_urls: [
+    'https://cf.trackerslist.com/best.txt',
+    'https://newtrackon.com/api/stable',
+    'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt',
+    'https://raw.githubusercontent.com/DeSireFire/animeTrackerList/master/AT_best.txt' # this one hasn't been updated since 2024 january
+    ]
+  individuals: [
+    'https://tr.bangumi.moe:9696/announce',
+    'http://tr.bangumi.moe:6969/announce',
+    'udp://tr.bangumi.moe:6969/announce',
+    'http://open.acgtracker.com:1096/announce',
+  ]
+
+flask:
+  host: 0.0.0.0 # use '0.0.0.0' to listen to all IPs, necessary for Docker
+  port: 8080

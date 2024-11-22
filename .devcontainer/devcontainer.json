@@ -1,0 +1,52 @@
+{
+	"name": "qbittorrent-add-trackers",
+	// "build": {
+	// 	"dockerfile": "Dockerfile"
+	// },
+	"dockerComposeFile": "compose.yml",
+	"service": "devcontainer",
+	// "overrideCommand": true, // see https://github.com/microsoft/vscode-remote-release/issues/7737
+	"shutdownAction": "stopCompose", // indicate docker to stop the compose on vscode closed
+	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+	// "features": {},
+	// 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// 👇 Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ".devcontainer/post-create.sh",
+	// 👇 Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.vscode-pylance",
+        "ms-python.autopep8",
+				
+				"ms-azuretools.vscode-docker",
+        "dbaeumer.vscode-eslint",
+        "davidanson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker",
+				"Supermaven.supermaven",
+				"saoudrizwan.claude-dev",
+        "yzhang.markdown-all-in-one",
+				"tamasfe.even-better-toml",
+				"njpwerner.autodocstring",
+				"formulahendry.code-runner",
+				"teticio.python-envy",
+				"zeshuaro.vscode-python-poetry",
+			]
+		},
+		"settings": {
+			"editor.tabSize": 2
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {
+			"plugins": "git aliases docker docker-compose common-aliases poetry zsh-syntax-highlighting zsh-autosuggestions ohmyzsh-full-autoupdate"
+		}
+	},
+	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root",
+	"workspaceFolder": "/workspace/qbittorrent-add-trackers",
+}
