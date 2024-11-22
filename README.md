@@ -32,6 +32,7 @@ APP__FLASK__PORT=8080
 
 ```yaml
 # compose.yml
+# assuming your qbittorrent password is 123456
 services:
 
   qbittorrent-add-trackers:
@@ -45,7 +46,6 @@ services:
       - ./config.yaml:/app/config.yaml
 
   qbittorrent:
-    # please set user/pass to admin/123456
     image: linuxserver/qbittorrent
     container_name: qbittorrent
     environment:
@@ -67,7 +67,7 @@ services:
 
 ```
 
-Where `run_on_add.sh` is:
+Create a bash script `run_on_add.sh`:
 
 ```sh
 #!/bin/bash
@@ -77,7 +77,7 @@ TORRENT_HASH=$1 # hash of torrent
 curl -v -X PATCH http://qbittorrent-add-trackers:${APP_PORT:-8080}/torrents/$TORRENT_HASH
 ```
 
-And `config.yaml` is your own settings based on `config.base.yaml`:
+Create a config file `config.yaml` based on [`config.base.yaml`](config.base.yaml):
 
 ```yaml
 qbittorrent: # replace with your actual qBittorrent instance, or let some of these values be empty and set the corresponding environment variables
@@ -127,6 +127,12 @@ And then place the `config.yaml` file in the same directory as the executable, a
 
 This project uses dev containers, so as long as you have Docker and VSCode installed, you can just open the project in VSCode and it will automatically set up the dev container for you.
 
+Otherwise, use Python 3.12 and install poetry and poethepoet:
+
+```bash
+pip install poetry poethepoet
+```
+
 ### Installing Dependencies
 
 ```bash
@@ -141,11 +147,12 @@ poetry run pytest
 
 ### Project Structure
 
-- `component/`: Core business logic components
-  - `qbittorrent_manager.py`: qBittorrent API integration
-  - `trackers_fetcher.py`: Tracker list fetching and caching
-- `config/`: Configuration management
-- `controller/`: REST API endpoints
+- `qbittorrent_add_trackers/`: The main project
+  - `component/`: Core business logic components
+    - `qbittorrent_manager.py`: qBittorrent API integration
+    - `trackers_fetcher.py`: Tracker list fetching and caching
+  - `config/`: Configuration management
+  - `controller/`: REST API endpoints
 - `build_scripts/`: Docker and build utilities
 
 ## Contributing
