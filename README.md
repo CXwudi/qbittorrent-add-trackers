@@ -34,17 +34,6 @@ APP__FLASK__PORT=8080
 # compose.yml
 # assuming your qbittorrent password is 123456
 services:
-
-  qbittorrent-add-trackers:
-    image: cxwudi/qbittorrent-add-trackers:latest
-    container_name: qbittorrent-add-trackers
-    environment:
-      - APP__QBITTORRENT__URL=http://qbittorrent:${QBITTORRENT_WEBUI_PORT}
-      - APP__QBITTORRENT__PASSWORD=123456
-      - APP__FLASK__PORT=${APP__FLASK__PORT:-8080}
-    volumes:
-      - ./config.yaml:/app/config.yaml
-
   qbittorrent:
     image: linuxserver/qbittorrent
     container_name: qbittorrent
@@ -64,6 +53,19 @@ services:
       - ${QBITTORRENT_TORRENTING_PORT}:${QBITTORRENT_TORRENTING_PORT}/tcp
       - ${QBITTORRENT_TORRENTING_PORT}:${QBITTORRENT_TORRENTING_PORT}/udp
     restart: unless-stopped
+
+  qbittorrent-add-trackers:
+    image: cxwudi/qbittorrent-add-trackers:latest
+    container_name: qbittorrent-add-trackers
+    environment:
+      - APP__QBITTORRENT__URL=http://qbittorrent:${QBITTORRENT_WEBUI_PORT}
+      - APP__QBITTORRENT__PASSWORD=123456
+      - APP__FLASK__PORT=${APP__FLASK__PORT:-8080}
+    volumes:
+      - ./config.yaml:/app/config.yaml
+    depends_on:
+      - qbittorrent-app
+    restart: unless-stopped # this is necessary as the container may start before qbittorrent is ready
 
 ```
 
@@ -98,6 +100,8 @@ trackers:
   individual_trackers:
     - "udp://tracker.example.com:6969/announce"
 ```
+
+The app will read both `config.yaml` and [`config.base.yaml`](config.base.yaml) from the current working directory.
 
 All configuration options can be overridden via environment variables, with a prefix of `APP__`.
 For example, to override the `qbittorrent.host` and `qbittorrent.port` of the qBittorrent instance, you can set `APP__QBITTORRENT__HOST` and `APP__QBITTORRENT__PORT` respectively.

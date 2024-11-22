@@ -48,3 +48,5 @@ Thumbs.db
 # qbittorrent
 .devcontainer/data/
 .devcontainer/downloads/
+
+config.yaml
