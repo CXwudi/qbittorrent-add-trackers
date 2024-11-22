@@ -20,3 +20,7 @@ trackers:
 flask:
   host: 0.0.0.0 # use '0.0.0.0' to listen to all IPs, necessary for Docker
   port: 8080
+
+cache: # used for caching tracker lists
+  ttl: 28800 # 8 hours
+  maxsize: 100 # 100 items

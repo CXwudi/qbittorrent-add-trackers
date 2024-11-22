@@ -22,8 +22,8 @@ class ComponentModule(Module):
   
   @singleton
   @provider
-  def ttl_cache(self) -> TTLCache:
-    return TTLCache(maxsize=100, ttl=3600 * 8)  # 8 hours
+  def ttl_cache(self, config: ConfigurationSet) -> TTLCache:
+    return TTLCache(maxsize=config.cache.maxsize, ttl=config.cache.ttl)
   
   @singleton
   @provider

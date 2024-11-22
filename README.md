@@ -1,8 +1,10 @@
 # qBittorrent Add Trackers
 
-A small flask app that automatically adds trackers to qBittorrent when a new torrent is added.
+A small flask app that automatically adds trackers from tracker lists to a torrent when it is added into qBittorrent.
 
-It simply just exposed a `PATCH /torrents/{hash}` endpoint that triggers the tracker addition process, and qBittorrent can be configured to run the a script to call that endpoint when a torrent is added.
+This app relies on the auto run script feature of qBittorrent to call a script when a torrent is added.
+
+This app simply exposes a `PATCH /torrents/{hash}` endpoint which simply fetches a list of trackers and added them to the torrent of the given hash, done by the qBittorrent Web API. qBittorrent can be configured to curl the endpoint when a torrent is added.
 
 ## Features
 
@@ -133,7 +135,7 @@ Here is the screenshot of the qBittorrent settings:
 
 You can run `poetry run package` to build a standalone executable.
 
-And then place the `config.yaml` file in the same directory as the executable, and run it.
+And then place your `config.yaml` file and [`config.base.yaml`](config.base.yaml) in the same directory as the executable, and run it.
 
 ## Development
 
