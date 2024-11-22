@@ -1,8 +1,8 @@
 # qBittorrent Add Trackers
 
-A small flask app that automatically adds trackers to qBittorrent when new torrents are added.
+A small flask app that automatically adds trackers to qBittorrent when a new torrent is added.
 
-It simply just exposed a `PATCH /torrents/{hash}` endpoint that triggers the tracker addition process, and qBittorrent can be configured to run the script when a torrent is added.
+It simply just exposed a `PATCH /torrents/{hash}` endpoint that triggers the tracker addition process, and qBittorrent can be configured to run the a script to call that endpoint when a torrent is added.
 
 ## Features
 
@@ -94,11 +94,15 @@ flask:
 
 trackers:
   # URLs that contain lists of trackers
-  tracker_list_urls:
-    - "https://example.com/trackers.txt"
+  tracker_list_urls: [
+    'https://cf.trackerslist.com/best.txt',
+    'https://newtrackon.com/api/stable',
+    'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt'
+  ]
   # Individual tracker URLs
-  individual_trackers:
-    - "udp://tracker.example.com:6969/announce"
+  individual_trackers: [
+    'http://open.acgtracker.com:1096/announce'
+  ]
 ```
 
 The app will read the included [`config.base.yaml`](config.base.yaml) from the current working directory first, and then override it with your provided `config.yaml` file in the same directory.
