@@ -1,19 +1,15 @@
 # qBittorrent Add Trackers
 
-A small flask app that automatically adds trackers from tracker lists to a torrent when it is added into qBittorrent.
+This app gives qBittorrent the missing functionality of automatically adding trackers from tracker lists to a new torrent.
 
-This app relies on the auto run script feature of qBittorrent to call a script when a torrent is added.
-
-This app simply exposes a `PATCH /torrents/{hash}` endpoint which simply fetches a list of trackers and added them to the torrent of the given hash, done by the qBittorrent Web API. qBittorrent can be configured to curl the endpoint when a torrent is added.
+This app simply exposes a `PATCH /torrents/{hash}` and qBittorrent can be configured to curl that endpoint when a torrent is added.
 
 ## Features
 
 - Automatically fetches updated trackers from configurable sources
-- Integrates with qBittorrent via Web API
-- Caches tracker lists to minimize external requests
+  - Supports both tracker list URLs and individual tracker URLs
 - Docker support for easy deployment
 - Configurable settings via YAML configuration
-- Supports both tracker list URLs and individual tracker URLs
 
 ## Prerequisites
 
@@ -107,7 +103,7 @@ trackers:
   ]
 ```
 
-The app will read the included [`config.base.yaml`](config.base.yaml) from the current working directory first, and then override it with your provided `config.yaml` file in the same directory.
+The app will read the both [`config.base.yaml`](config.base.yaml) and `config.yaml` file in the same directory of the executable.
 
 Optionally, you can override the configuration via environment variables, with a prefix of `APP__`.
 For example, to override the `qbittorrent.host` and `qbittorrent.port` of the qBittorrent instance, you can set `APP__QBITTORRENT__HOST` and `APP__QBITTORRENT__PORT` respectively.
