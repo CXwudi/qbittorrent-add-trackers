@@ -20,7 +20,7 @@ python-configuration = {version = "^0.12.1", extras = ["yaml", "toml"]}
 # caching
 cachetools = "^5.4.0"
 # RestAPI
-flask = "^3.1.0"
+flask = "^3.1.1"
 flask-injector = "^0.15.0"
 waitress = "^3.0.2"
 pyinstaller = {version = "^6.11.1", python = ">=3.12,<3.14"}
