@@ -32,13 +32,10 @@ test = [
 [project.scripts]
 main = "qbittorrent_add_trackers.main:main"
 docker-build = "build_scripts.build_docker:main"
+package = "build_scripts.package:main"
 
-
-[tool.poe.tasks]
-  [tool.poe.tasks.package]
-  help = "Package the application"
-  cmd = "pyinstaller --onefile --name qbittorrent-add-trackers src/qbittorrent_add_trackers/main.py"
-
+[tool.hatch.build.targets.wheel]
+packages = ["src/qbittorrent_add_trackers", "build_scripts"]
 
 [build-system]
 requires = ["hatchling"]
