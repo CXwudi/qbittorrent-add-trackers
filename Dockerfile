@@ -24,19 +24,19 @@ RUN apk add --no-cache \
 ENV OPENSSL_DIR=/usr \
     PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
-# Install Poetry and PyInstaller
-RUN pip install --no-cache-dir poetry pyinstaller poethepoet
+# Install uv and PyInstaller
+RUN pip install --no-cache-dir uv pyinstaller poethepoet
 
 # Set working directory
 WORKDIR /app
 
 # Copy project files
-COPY pyproject.toml poetry.lock ./
-COPY qbittorrent_add_trackers ./qbittorrent_add_trackers
+COPY pyproject.toml uv.lock ./
+COPY src ./src
 COPY build_scripts ./build_scripts
 
 # Install project dependencies
-RUN poetry install --no-dev
+RUN uv sync --no-dev
 
 # Build binary
 RUN poe package

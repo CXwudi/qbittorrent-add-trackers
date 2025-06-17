@@ -33,12 +33,11 @@ def main():
         pyproject = tomli.load(f)
 
     # Extract version, Python version, and author
-    version = pyproject["tool"]["poetry"]["version"]
-    python_version = pyproject["tool"]["poetry"]["dependencies"]["python"].strip(
-        "^")
-    # Extract username from authors field (format: ["Name <email>"])
-    author = pyproject["tool"]["poetry"]["authors"][0]
-    username = author.split("<")[0].strip().lower()
+    version = pyproject["project"]["version"]
+    python_version = pyproject["project"]["requires-python"].strip(">=")
+    # Extract username from authors field
+    author = pyproject["project"]["authors"][0]
+    username = author["name"].lower()
 
     # Prepare Docker image name and tags
     image_name = f"{username}/qbittorrent-add-trackers"

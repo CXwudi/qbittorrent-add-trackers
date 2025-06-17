@@ -1,47 +1,45 @@
-[tool.poetry]
+[project]
 name = "qbittorrent-add-trackers"
 version = "0.1.1"
 description = ""
-authors = ["CXwudi <cx2010017@gmail.com>"]
+authors = [
+    {name = "CXwudi", email = "cx2010017@gmail.com"}
+]
 readme = "README.md"
-packages = [
-  { include = "qbittorrent_add_trackers" },
-  { include = "build_scripts" },
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.4",
+    "qbittorrent-api>=2024.11.70",
+    "logging>=0.4.9.6",
+    "websocket-client>=1.8.0",
+    "injector>=0.22.0",
+    "python-configuration[yaml,toml]>=0.12.1",
+    "cachetools>=5.4.0",
+    "flask>=3.1.1",
+    "flask-injector>=0.15.0",
+    "waitress>=3.0.2",
+    "pyinstaller>=6.11.1",
+    "tomli>=2.1.0",
+    "pyyaml>=6.0.2",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-requests = "^2.32.4"
-qbittorrent-api = "^2024.11.70"
-logging = "^0.4.9.6"
-websocket-client = "^1.8.0"
-injector = "^0.22.0"
-python-configuration = {version = "^0.12.1", extras = ["yaml", "toml"]}
-# caching
-cachetools = "^5.4.0"
-# RestAPI
-flask = "^3.1.1"
-flask-injector = "^0.15.0"
-waitress = "^3.0.2"
-pyinstaller = {version = "^6.11.1", python = ">=3.12,<3.14"}
-tomli = "^2.1.0"
-pyyaml = "^6.0.2"
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3.3",
+    "pytest-mock>=3.14.0",
+]
 
-
-[tool.poetry.group.test.dependencies]  
-pytest = "^8.3.3"
-pytest-mock = "^3.14.0"
-
-[tool.poetry.scripts]
+[project.scripts]
 main = "qbittorrent_add_trackers.main:main"
 docker-build = "build_scripts.build_docker:main"
+
 
 [tool.poe.tasks]
   [tool.poe.tasks.package]
   help = "Package the application"
-  cmd = "pyinstaller --onefile --name qbittorrent-add-trackers qbittorrent_add_trackers/main.py"
+  cmd = "pyinstaller --onefile --name qbittorrent-add-trackers src/qbittorrent_add_trackers/main.py"
 
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

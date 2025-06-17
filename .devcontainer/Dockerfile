@@ -25,14 +25,14 @@ RUN DEBIAN_FRONTEND=noninteractive \
         libffi-dev \
         liblzma-dev
 
-# Python and poetry installation
+# Python and uv installation
 USER $USER
 ARG HOME="/home/$USER"
 ARG PYTHON_VERSION=3.12
 # ARG PYTHON_VERSION=3.10
 
 ENV PYENV_ROOT="${HOME}/.pyenv"
-ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${HOME}/.local/bin:$PATH"
+ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${HOME}/.local/bin:${HOME}/.cargo/bin:$PATH"
 
 RUN echo "done 0" \
     && curl https://pyenv.run | bash \
@@ -41,8 +41,9 @@ RUN echo "done 0" \
     && echo "done 2" \
     && pyenv global ${PYTHON_VERSION} \
     && echo "done 3" \
-    && curl -sSL https://install.python-poetry.org | python3 - \
-    && poetry config virtualenvs.in-project true \
+    && curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && echo '[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env' >> ~/.bashrc \
+    && echo '[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env' >> ~/.zshrc \
     && pip install --upgrade pip \
     && echo "done 4" \
     && pip install poethepoet \
