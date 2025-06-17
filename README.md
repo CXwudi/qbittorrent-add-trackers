@@ -4,6 +4,30 @@ This app gives qBittorrent the missing functionality of automatically adding tra
 
 This app simply exposes a `PATCH /torrents/{hash}` and qBittorrent can be configured to curl that endpoint when a torrent is added.
 
+## How It Works
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant qBittorrent
+    participant TrackerApp as qBittorrent Add Trackers
+    participant TrackerSources as Tracker List URLs
+
+    User->>qBittorrent: Add new torrent
+    qBittorrent->>qBittorrent: Torrent added successfully
+    qBittorrent->>TrackerApp: PATCH /torrents/{hash}<br/>(via configured script)
+    
+    TrackerApp->>TrackerSources: Fetch latest trackers<br/>(cached for performance)
+    TrackerSources-->>TrackerApp: Return active tracker list
+    
+    TrackerApp->>TrackerApp: Parse and filter trackers
+    TrackerApp->>qBittorrent: Add trackers to torrent<br/>(via qBittorrent API)
+    qBittorrent-->>TrackerApp: Success response
+    TrackerApp-->>qBittorrent: 200 OK
+    
+    Note over qBittorrent: Torrent now has<br/>additional trackers
+```
+
 ## Features
 
 - Automatically fetches updated trackers from configurable sources
