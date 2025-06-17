@@ -50,12 +50,12 @@ def main():
     setup_buildx()
 
     # Prepare tag arguments
-    tag_args = []
+    tag_args: list[str] = []
     for tag in tags:
         tag_args.extend(["-t", tag])
 
     # Build Docker image for multiple platforms
-    build_cmd = [
+    build_cmd: list[str] = [
         "docker", "buildx", "build",
         "--platform", args.platforms,
         "--build-arg", f"PYTHON_VERSION={python_version}",
@@ -76,7 +76,7 @@ def main():
 
     print(f"Building Docker image: {' '.join(build_cmd)}")
     try:
-        result = subprocess.run(build_cmd, check=True)
+        subprocess.run(build_cmd, check=True)
         platforms_list = args.platforms.split(',')
         print(f"Docker image built successfully for platforms: {', '.join(platforms_list)}")
         print(f"Tags: {', '.join(tags)}")

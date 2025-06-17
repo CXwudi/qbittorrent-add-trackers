@@ -25,13 +25,13 @@ ENV OPENSSL_DIR=/usr \
     PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
 # Install uv and PyInstaller
-RUN pip install --no-cache-dir uv pyinstaller poethepoet
+RUN pip install --no-cache-dir uv pyinstaller
 
 # Set working directory
 WORKDIR /app
 
 # Copy project files
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml uv.lock README.md ./
 COPY src ./src
 COPY build_scripts ./build_scripts
 
@@ -39,7 +39,7 @@ COPY build_scripts ./build_scripts
 RUN uv sync --no-dev
 
 # Build binary
-RUN poe package
+RUN uv run package
 
 # Final stage
 FROM alpine

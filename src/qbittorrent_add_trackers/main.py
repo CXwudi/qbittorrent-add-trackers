@@ -17,7 +17,7 @@ flask_app = flask_runner.app
 
 def main():
   """
-  Entry point from poetry.
+  Entry point from uv.
   """
   flask_runner.run_flask()
 

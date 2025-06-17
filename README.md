@@ -129,7 +129,7 @@ Here is the screenshot of the qBittorrent settings:
 
 ### For non Docker users
 
-You can run `poetry run package` to build a standalone executable.
+You can run `uv run package` to build a standalone executable.
 
 And then place your `config.yaml` file and [`config.base.yaml`](config.base.yaml) in the same directory as the executable, and run it.
 
@@ -137,22 +137,22 @@ And then place your `config.yaml` file and [`config.base.yaml`](config.base.yaml
 
 This project uses dev containers, so as long as you have Docker and VSCode installed, you can just open the project in VSCode and it will automatically set up the dev container for you.
 
-Otherwise, use Python 3.12 and install poetry and poethepoet:
+Otherwise, use Python 3.12 and install uv:
 
 ```bash
-pip install poetry poethepoet
+pip install uv
 ```
 
 ### Installing Dependencies
 
 ```bash
-poetry install
+uv sync
 ```
 
 ### Running Tests
 
 ```bash
-poetry run pytest
+uv run pytest
 ```
 
 ### Project Structure
