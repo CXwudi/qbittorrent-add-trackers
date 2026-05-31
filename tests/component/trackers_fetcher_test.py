@@ -17,7 +17,7 @@ def mock_cache():
 
 
 def test_get_one(mock_cache):
-  fetcher = TrackersFetcher(mock_cache, ["https://cf.trackerslist.com/all.txt"])
+  fetcher = TrackersFetcher(mock_cache, ["https://cf.trackerslist.com/all.txt"], [])
   all = fetcher._get("https://cf.trackerslist.com/all.txt")
   logger.info(all)
   assert len(all) > 100
@@ -33,7 +33,7 @@ def test_cache(mock_cache):
     mock_get.return_value.status_code = 200
     mock_get.return_value.text = "\n".join(sample_response)
 
-    fetcher = TrackersFetcher(mock_cache, [url])
+    fetcher = TrackersFetcher(mock_cache, [url], [])
 
     # First call - expects to fetch the data and populate the cache
     result = fetcher._get_one(url)
