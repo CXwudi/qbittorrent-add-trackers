@@ -8,9 +8,9 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "certifi>=2026.10.19",
     "requests>=2.33.0",
     "qbittorrent-api>=2026.5.3",
-    "logging>=0.4.9.6",
     "websocket-client>=1.8.0",
     "injector>=0.22.0",
     "python-configuration[yaml,toml]>=0.12.1",
