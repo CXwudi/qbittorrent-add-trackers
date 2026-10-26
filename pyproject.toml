@@ -1,6 +1,6 @@
 [project]
 name = "qbittorrent-add-trackers"
-version = "0.1.3"
+version = "0.1.4"
 description = ""
 authors = [
     {name = "CXwudi", email = "cx2010017@gmail.com"}
